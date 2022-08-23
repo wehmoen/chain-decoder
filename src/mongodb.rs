@@ -64,13 +64,8 @@ impl Adapter {
         ).await
     }
 
-    pub async fn transactions(&self, last_block: i64) -> mongodb::error::Result<Cursor<Transaction>> {
-        let doc = doc! {
-          "block": {
-                "&gt": last_block
-            }
-        };
-        self.transactions.find(doc, None).await
+    pub async fn transactions(&self, _last_block: i64) -> mongodb::error::Result<Cursor<Transaction>> {
+        self.transactions.find(None, None).await
     }
 
     pub async fn insert_decoded(&self, decoded: &Vec<RRDecodedTransaction>) -> mongodb::error::Result<InsertManyResult> {
