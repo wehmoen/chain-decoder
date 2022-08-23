@@ -16,7 +16,9 @@ async fn main() {
         Some(res) => res.value.parse::<i64>().unwrap()
     };
 
-    let mut txs = db.transactions(last_block).await.expect("Failed to create transaction cursor");
+    let mut index: i128 = 0;
+
+    let mut txs = db.transactions().await.expect("Failed to create transaction cursor");
 
     let mut decoded :Vec<RRDecodedTransaction> = vec![];
 

@@ -2,7 +2,7 @@ use std::error::Error;
 
 use mongodb::{Client, Collection, Cursor, Database};
 use mongodb::bson::{DateTime, doc};
-use mongodb::options::UpdateOptions;
+use mongodb::options::{FindOptions, UpdateOptions};
 use mongodb::results::{InsertManyResult, UpdateResult};
 use serde::{Deserialize, Serialize};
 use crate::RRDecodedTransaction;
@@ -64,8 +64,12 @@ impl Adapter {
         ).await
     }
 
-    pub async fn transactions(&self, _last_block: i64) -> mongodb::error::Result<Cursor<Transaction>> {
-        self.transactions.find(None, None).await
+    pub async fn transactions(&self) -> mongodb::error::Result<Cursor<Transaction>> {
+        let options = FindOptions::builder()
+            .no_cursor_timeout(Some(true))
+            .batch_size(Some(100u32))
+            .build();
+        self.transactions.find(None, options).await
     }
 
     pub async fn insert_decoded(&self, decoded: &Vec<RRDecodedTransaction>) -> mongodb::error::Result<InsertManyResult> {
