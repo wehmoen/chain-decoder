@@ -5,7 +5,7 @@ use reqwest_retry::policies::ExponentialBackoff;
 use reqwest_retry::RetryTransientMiddleware;
 use serde::{Deserialize, Serialize};
 
-const DEFAULT_USER_AGENT: &str = "ronin/wally0.1.0 See: https://github.com/wehmoen/ronin-wally";
+const DEFAULT_USER_AGENT: &str = "ronin/chain-decoder0.1.0 See: https://github.com/wehmoen/chain-decoder";
 
 pub type RRTransactionHash = String;
 
