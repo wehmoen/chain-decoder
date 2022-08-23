@@ -8,7 +8,7 @@ use crate::roninrest::RRDecodedTransaction;
 #[tokio::main]
 async fn main() {
 
-    let db = mongodb::Adapter::new("mongodb://127.0.0.1:27017", Some("roninchain")).await;
+    let db = mongodb::Adapter::new("mongodb://127.0.0.1:27017", Some("ronin")).await;
     let rr = roninrest::Adapter::new();
 
     let last_block = match db.metadata("last_block").await.unwrap() {
