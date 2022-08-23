@@ -23,6 +23,7 @@ async fn main() {
     let mut total_decoded: i128 = 0;
 
     while let Some(tx) = txs.try_next().await.unwrap() {
+        println!("Pending decoded TX: {}", decoded.len());
         decoded.push(RRDecodedTransaction {
             from: tx.from,
             to: tx.to,
