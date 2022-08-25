@@ -2,14 +2,15 @@ mod mongodb;
 mod roninrest;
 
 use futures::stream::{StreamExt, TryStreamExt};
-use crate::mongodb::MetaData;
 use crate::roninrest::RRDecodedTransaction;
 
 #[tokio::main]
 async fn main() {
 
     let db = mongodb::Adapter::new("mongodb://127.0.0.1:27017", Some("ronin")).await;
-    let rr = roninrest::Adapter::new();
+    let mut rr = roninrest::Adapter::new();
+
+    rr.host = "http://localhost:3000".into();
 
     let last_block = db.last_block().await;
 

@@ -76,26 +76,3 @@ impl Adapter {
         data
     }
 }
-
-pub struct ArgParser {}
-
-impl ArgParser {
-    fn parse() -> Vec<String> {
-        std::env::args().collect()
-    }
-
-    pub fn split(param: &String) -> Option<String> {
-        let args: Vec<String> = ArgParser::parse();
-
-        for arg in args {
-            if arg.starts_with(param) {
-                let kv: Vec<&str> = arg.split('=').collect();
-                if kv.len() == 2 {
-                    return Some(kv[1].to_string());
-                }
-            }
-        }
-
-        None
-    }
-}
