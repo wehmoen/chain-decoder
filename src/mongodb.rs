@@ -52,6 +52,9 @@ impl Adapter {
         let options = FindOptions::builder()
             .no_cursor_timeout(Some(true))
             .batch_size(Some(100u32))
+            .sort(doc! {
+                "block": 1i64
+            })
             .build();
         self.transactions.find(doc! {
             "block": {
