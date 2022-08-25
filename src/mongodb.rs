@@ -55,7 +55,7 @@ impl Adapter {
             .build();
         self.transactions.find(doc! {
             "block": {
-                "&gt": last_block as i64
+                "$gt": last_block as i64
             }
         }, options).await
     }
