@@ -11,14 +11,9 @@ async fn main() {
     let db = mongodb::Adapter::new("mongodb://127.0.0.1:27017", Some("ronin")).await;
     let rr = roninrest::Adapter::new();
 
-    let last_block = match db.metadata("last_block").await.unwrap() {
-        None => 0i64,
-        Some(res) => res.value.parse::<i64>().unwrap()
-    };
+    let last_block = db.last_block().await;
 
-    let mut index: i128 = 0;
-
-    let mut txs = db.transactions().await.expect("Failed to create transaction cursor");
+    let mut txs = db.transactions(last_block).await.expect("Failed to create transaction cursor");
 
     let mut decoded :Vec<RRDecodedTransaction> = vec![];
 
